@@ -8,21 +8,25 @@ class Solution {
 public:
   ListNode* removeElements(ListNode *head, int val) {
     if (head == NULL) return NULL;
-    ListNode *cur = head, *next = cur->next;
-    while (next) {
-      if (next->val == val) {
-        cur->next = next->next;
-        delete next;
-        next = cur->next;
+    ListNode *ptr = head, *tmp;
+    while (ptr->next) {
+      if (ptr->next->val == val) {
+        //delete node
+        tmp = ptr->next;
+        ptr->next = tmp->next;
+        delete tmp;
       } else {
-        cur = cur->next;
-        next = next->next;
+        ptr = ptr->next;
       }
     }
+
     if (head->val == val) {
-      cur = head;
-      head = head->next;
-      delete cur;
+      tmp = head;
+      if (head->next)
+        head = head->next;
+      else
+        head = NULL;
+      delete tmp;
     }
     return head;
   }
