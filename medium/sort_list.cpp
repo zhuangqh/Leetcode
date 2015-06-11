@@ -27,6 +27,7 @@ public:
       head->next = *it;
       head = *it;
     }
+    head->next = NULL;
     return store[0];
   }
 };
