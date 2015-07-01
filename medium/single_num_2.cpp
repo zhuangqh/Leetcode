@@ -15,3 +15,6 @@ public:
     return ans;
   }
 };
+int main() {
+
+}
