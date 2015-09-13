@@ -14,8 +14,10 @@ public:
     vector<int> indegree(n, 0);
 
     for (auto it = prereq.begin(); it != prereq.end(); ++it) {
-      graph[it->second][it->first] = true;
-      ++indegree[it->first];
+      if (graph[it->first][it->second] == false) {
+        graph[it->first][it->second] = true;
+        ++indegree[it->second];
+      }
     }
 
     queue<int> buf;
@@ -41,6 +43,6 @@ public:
       }
     }
 
-    return (count == n);
+    return count == n;
   }
 };
