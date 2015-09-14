@@ -1,8 +1,8 @@
 class Solution {
 public:
     string simplifyPath(string path) {
-        stack<string> buf;
-        
+        string ans;
+
         for (int i = 0; i < path.size(); ++i) {
 
             if (path[i] == '/') continue;
@@ -13,24 +13,17 @@ public:
             }
             
             if (tmp == "..") {
-                if (!buf.empty())
-                    buf.pop();
+                if (ans != "") {
+               		int j = ans.length() - 1;
+               		while (ans[j--] != '/') {}
+
+               		ans = ans.substr(0, j + 1);
+                }
             } else if (tmp != ".") {
-                buf.push(tmp);
+                ans += "/" + tmp;
             }
         }
         
-        vector<string> vec;
-        while (!buf.empty()) {
-            vec.push_back(buf.top());
-            buf.pop();
-        }
-        
-        string ans;
-        for (auto it = vec.rbegin(); it != vec.rend(); ++it) {
-            ans += "/" + *it;
-        }
-        
-        return (vec.empty() ? "/" : ans);
+        return (ans == "" ? "/" : ans);
     }
 };
