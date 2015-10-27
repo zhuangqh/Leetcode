@@ -7,20 +7,27 @@ struct TreeNode {
 };
 
 class Solution {
+private:
+  int sum;
 public:
-  int sumNumbers(TreeNode *root) {
-    if (root == NULL)
-      return 0;
-
-    if (!root->left && !root->right)
-      return root->val;
-
-    int sum = 0;
-    if (root->left)
-      sum += root->val * 10 + sumNumbers(root->left);
-    if (root->right)
-      sum += root->val * 10 + sumNumbers(root->right);
-
+  int sumNumbers(TreeNode* root) {
+    sum = 0;
+    RsumNumbers(root, 0);
     return sum;
+  }
+
+  void RsumNumbers(TreeNode* root, int total) {
+    if (root == NULL) return;
+
+    int curtotal = total*10 + root->val;
+
+    if (!(root->left) && !(root->right)) {
+      sum += curtotal;
+    }
+
+    if (root->left)
+      RsumNumbers(root->left, curtotal);
+    if (root->right)
+      RsumNumbers(root->right, curtotal);
   }
 };
