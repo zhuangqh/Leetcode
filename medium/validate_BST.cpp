@@ -12,22 +12,16 @@ struct TreeNode {
 class Solution {
 public:
   bool isValidBST(TreeNode* root) {
-    return Rcheck(root);
+    return Rcheck(root, NULL, NULL);
   }
 
-  bool Rcheck(TreeNode* root) {
+  bool Rcheck(TreeNode* root, TreeNode* minNode, TreeNode* maxNode) {
     if (root == NULL) return true;
 
-    bool ans = true;
+    if (minNode && root->val <= minNode->val
+      || maxNode && root->val >= maxNode->val)
+      return false;
 
-    if (root->left && (root->left->val > root->val) ) {
-      ans = false;
-    }
-
-    if (root->right && root->right->val < root->val) {
-      ans = false;
-    }
-
-    return ans && Rcheck(root->left) && Rcheck(root->right);
+    return Rcheck(root->left, minNode, root) && Rcheck(root->right, root, maxNode);
   }
 };
