@@ -49,10 +49,8 @@ public:
                         diag(2*n - 1, false),
                         antidiag(2*n - 1, false);
         RNQueens(temp, n, n, colUsed, diag, antidiag);
+        // cout << ans.size() << endl;
         return ans;
-    }
-    void shit() {
-        cout << ans.size() << endl;
     }
 };
 
@@ -60,6 +58,5 @@ int main() {
     Solution a;
     a.solveNQueens(8);
 
-    a.shit();
     return 0;
 }
