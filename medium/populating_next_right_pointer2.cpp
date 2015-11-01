@@ -14,51 +14,30 @@ struct TreeLinkNode {
 class Solution {
 public:
   void connect(TreeLinkNode *root) {
-    if (root == NULL)
-      return;
+    TreeLinkNode* now, tail, head;
 
-    TreeLinkNode* ptr = NULL;
+    now = root;
+    head = tail = NULL;  // head and tail are pointers in next level
 
-    if (root->left) {
-      root->left->next = root->right;
-      if (root->right == NULL) {
-        ptr = root->next;
+    while (now) {
+      if (now->left) {
+        if (tail)
+          tail = tail->next = now->left;
+        else
+          head = tail = now->left;
+      }
+      if (now->right) {
+        if (tail)
+          tail = tail->next = now->right;
+        else
+          head = tail = now->right;
+      }
 
-        while (ptr) {
-          if (ptr->left) {
-            root->left->next = ptr->left;
-            break;
-          }
-          if (ptr->right) {
-            root->left->next = ptr->right;
-            break;
-          }
-
-          ptr = ptr->next;
-        }
+      if (!(now = now->next)) {
+        now = head;
+        head = tail = NULL;
       }
     }
-
-    if (root->right) {
-      root->right->next = NULL;
-      ptr = root->next;
-
-      while (ptr) {
-        if (ptr->left) {
-          root->right->next = ptr->left;
-          break;
-        }
-        if (ptr->right) {
-          root->right->next = ptr->right;
-          break;
-        }
-
-        ptr = ptr->next;
-      }
-    }
-
-    connect(root->left);
-    connect(root->right);
   }
 };
 
